@@ -71,7 +71,7 @@ if (!process.env.SLACK_TOKEN) {
 
 var Botkit = require('botkit');
 
-var controller = Botkit.slackbot({
+controller = Botkit.slackbot({
     debug: false,
 });
 
@@ -80,26 +80,27 @@ var bot = controller.spawn({
 }).startRTM();
 
 
-controller.hears(['hello','hi'],'direct_message,direct_mention,mention',function(bot, message) {
+var Fs = require('fs');
+var Path = require('path');
 
-    bot.api.reactions.add({
-        timestamp: message.ts,
-        channel: message.channel,
-        name: 'robot_face',
-    },function(err, res) {
-        if (err) {
-            bot.botkit.log('Failed to add emoji reaction :(',err);
-        }
-    });
+var load = function(path, file) {
+  var ext = Path.extname(file);
+  var full = Path.join(path, Path.basename(file, ext));
 
+  try {
+    var script = require(full);
+    if (typeof script === 'function') {
+      script(this);
+    }
+  } catch(error) {
+    process.exit(1);
+  }
+};
 
-    controller.storage.users.get(message.user,function(err, user) {
-        if (user && user.name) {
-            bot.reply(message,'Hello ' + user.name + '!!');
-        } else {
-            bot.reply(message,'Hello.');
-        }
-    });
+var path = Path.resolve('.', 'scripts')
+
+Fs.readdirSync(path).sort().forEach(function(file) {
+  load(path, file);
 });
 
 
