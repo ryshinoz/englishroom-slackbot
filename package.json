@@ -1,0 +1,23 @@
+{
+  "name": "englishroom-slackbot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ryshinoz/englishroom-slackbot.git"
+  },
+  "author": "ryshinoz@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryshinoz/englishroom-slackbot/issues"
+  },
+  "homepage": "https://github.com/ryshinoz/englishroom-slackbot#readme",
+  "dependencies": {
+    "botkit": "0.0.7"
+  }
+}
