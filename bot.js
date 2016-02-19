@@ -133,7 +133,21 @@ controller.hears(['shutdown'],'direct_message,direct_mention,mention',function(b
 
 // To keep Heroku's free dyno awake
 var http = require('http');
-http.createServer(function(request, response) {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Ok, dyno is awake.');
+var path=require('path');
+var querystring = require('querystring');
+var url = require('url')
+http.createServer(function(req, res) {
+    var lookup=path.basename(decodeURI(req.url));
+    var query = querystring.parse(url.parse(lookup).query);
+    if (typeof query.id === "undefined") {
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('Ok, dyno is awake.');
+    } else {
+        var tmp = path.join(__dirname, 'tmp', query.id);
+        console.log(tmp);
+        var buf = Fs.readFileSync(tmp);
+        res.writeHead(200, { 'Content-Type': 'image/gif' });
+        res.end(buf);
+    }
 }).listen(process.env.PORT || 5000);
+
