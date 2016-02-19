@@ -84,12 +84,14 @@ loop_with = function(count, block, final) {
   }
 };
 
-controller.hears(['amesh'],'direct_message,direct_mention,mention',function(bot, message) {
+controller.hears(['amesh ?([0-9]+)?'],'direct_message,direct_mention,mention',function(bot, message) {
   var anime, d, last_image, time;
   controller.storage.users.get(message.user,function(err, user) {
     bot.reply(message, 'verified');
   });
-  time = 30;
+  var matches = message.text.match(/^amesh ?([0-9]+)?$/);
+  time = Number(matches[1]) || 30;
+  console.log('time: ' + time);
   request = require('request');
   d = new Date();
   anime = gm().command("convert")["in"]("-delay", "20")["in"]("-loop", "0")["in"]("-dispose", "background")["in"]("-coalesce")["in"]("-deconstruct")["in"]("-colors", "50")["in"]("-crop", "500x350+120+130!");
