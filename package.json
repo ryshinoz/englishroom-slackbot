@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/ryshinoz/englishroom-slackbot#readme",
   "dependencies": {
-    "botkit": "0.0.7"
+    "botkit": "0.0.7",
+    "gm": "^1.21.1",
+    "mktemp": "^0.4.0",
+    "request": "^2.69.0"
   }
 }
