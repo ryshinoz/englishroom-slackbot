@@ -63,6 +63,7 @@ This bot demonstrates many of the core features of Botkit:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+process.env.PWD = process.cwd()
 
 if (!process.env.SLACK_TOKEN) {
     console.log('Error: Specify SLACK_TOKEN in environment');
@@ -143,11 +144,16 @@ http.createServer(function(req, res) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Ok, dyno is awake.');
     } else {
-        var tmp = path.join(__dirname, '../tmp', query.id);
-        console.log(tmp);
-        var buf = Fs.readFileSync(tmp);
-        res.writeHead(200, { 'Content-Type': 'image/gif' });
-        res.end(buf);
+        try {
+            var tmp = path.join(process.env.PWD, '../tmp', query.id);
+            console.log(tmp);
+            var buf = Fs.readFileSync(tmp);
+            res.writeHead(200, { 'Content-Type': 'image/gif' });
+            res.end(buf);
+        } catch (_error) {
+            error = _error;
+            console.log(error);
+        }
     }
 }).listen(process.env.PORT || 5000);
 

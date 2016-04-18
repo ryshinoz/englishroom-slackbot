@@ -1,5 +1,3 @@
-process.env.PWD = process.cwd()
-
 var ameeeeesh, fs, get_gif_name, get_tmp_image, gm, gmbase, loop_with, mktemp, path, request, temppath, url;
 
 fs = require('fs');
