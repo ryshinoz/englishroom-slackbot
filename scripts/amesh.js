@@ -1,3 +1,5 @@
+process.env.PWD = process.cwd()
+
 var ameeeeesh, fs, get_gif_name, get_tmp_image, gm, gmbase, loop_with, mktemp, path, request, temppath, url;
 
 fs = require('fs');
@@ -12,7 +14,7 @@ mktemp = require('mktemp');
 
 request = require('request');
 
-temppath = path.join(__dirname, '..', 'tmp');
+temppath = path.join(process.env.PWD, '..', 'tmp');
 
 url = process.env.HEROKU_URL;
 
