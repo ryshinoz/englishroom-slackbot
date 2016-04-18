@@ -143,7 +143,7 @@ http.createServer(function(req, res) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Ok, dyno is awake.');
     } else {
-        var tmp = path.join(__dirname, 'tmp', query.id);
+        var tmp = path.join(__dirname, '../tmp', query.id);
         console.log(tmp);
         var buf = Fs.readFileSync(tmp);
         res.writeHead(200, { 'Content-Type': 'image/gif' });
